@@ -44,7 +44,6 @@ router.get('/active/:id', async (req, res) => {
     }
 });
 
-
 // Delete a donomon by its `id` value (for characters page)
 router.delete('/:id', async (req, res) => {
     try {
@@ -59,6 +58,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 module.exports = router;

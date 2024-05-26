@@ -6,17 +6,6 @@ router.get('/', async (req, res) => {
     res.render('homepage');
 });
 
-router.get('/profile', withAuth, async (req, res) => {
-    const donomonData = await Donomon.findAll({
-        where: {
-            userId: req.session.userId,
-        },
-    });
-    const donomons = donomonData.map((donomon) => donomon.get({ plain: true }));
-    const username = req.session.username;
-    res.render('profile', { donomons, username });
-});
-
 const retrieveDonomons = async (userId, retrieveDonomons, retrieveTypes) => {
     const returnObj = {};
 
@@ -47,7 +36,11 @@ const retrieveDonomons = async (userId, retrieveDonomons, retrieveTypes) => {
 };
 
 router.get('/characters', withAuth, async (req, res) => {
-    const { donomons, types } = await retrieveDonomons(req.session.userId, true, true);
+    const { donomons, types } = await retrieveDonomons(
+        req.session.userId,
+        true,
+        true,
+    );
     res.render('characters', {
         donomons,
         types,
@@ -56,20 +49,15 @@ router.get('/characters', withAuth, async (req, res) => {
 
 router.get('/adventure', withAuth, async (req, res) => {
     const { donomons } = await retrieveDonomons(req.session.userId, true);
+    // eslint-disable-next-line eqeqeq
+    const activeDonomon = donomons.find(
+        (donomon) => donomon.id == req.session.activeDonomonId,
+    );
     res.render('adventure', {
+        username: req.session.username,
         donomons,
+        activeDonomon,
     });
-});
-
-router.get('/profile', withAuth, async (req, res) => {
-    const donomonData = await Donomon.findAll({
-        where: {
-            userId: req.session.userId,
-        },
-    });
-    const donomons = donomonData.map((donomon) => donomon.get({ plain: true }));
-    const username = req.session.username;
-    res.render('profile', { donomons, username });
 });
 
 router.get('/login', (req, res) => {

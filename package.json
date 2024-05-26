@@ -21,7 +21,8 @@
         "handlebars": "^4.7.7",
         "homepage": "^1.0.0",
         "mysql2": "^2.2.5",
-        "sequelize": "^6.3.5"
+        "sequelize": "^6.3.5",
+        "socket.io": "^4.7.1"
     },
     "devDependencies": {
         "eslint": "^8.44.0",

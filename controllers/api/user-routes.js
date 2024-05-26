@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Donomon, User } = require('../../models');
+const { User } = require('../../models');
 
 // Sign up route
 router.post('/', async (req, res) => {
@@ -17,8 +17,18 @@ router.post('/', async (req, res) => {
             res.status(200).json(newUserData);
         });
     } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
+        // error if email already exists and error if password is too short and error if name is too short
+        if (err.errors[0].type === 'unique violation') {
+            res.status(400).json({
+                message: 'Email already exists!',
+            });
+        } else if (err.errors[0].type === 'Validation error') {
+            res.status(400).json({
+                message: 'Password must be at least 8 characters long!',
+            });
+        } else {
+            res.status(500).json(err);
+        }
     }
 });
 
@@ -77,16 +87,12 @@ router.put('/active/:id', async (req, res) => {
                 },
             },
         );
-        // Log the active donomon id to the console
-        console.log(req.session.userId);
-        const activeDonomon = await Donomon.findByPk(req.params.id);
-        //save to session
         req.session.save(() => {
-            // req.session.activeDonomonId = req.params.id;
-            res.json(activeDonomon.get({ plain: true }));
+            req.session.activeDonomonId = req.params.id;
+            // res.json(activeDonomon.get({ plain: true }));
+            res.end();
         });
     } catch (err) {
-        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -110,6 +116,10 @@ router.post('/logout', (req, res) => {
     } else {
         res.status(404).end();
     }
+});
+
+router.get('/username', (req, res) => {
+    return res.session.username;
 });
 
 module.exports = router;

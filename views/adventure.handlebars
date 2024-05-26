@@ -1,61 +1,74 @@
 <!-- adventure.handlebars -->
- <h1>Adventure</h1>
- {{!-- get active donomon from user route and call information from donomon table --}}
- <h2>Active Donomon</h2>
-  <div class="activeDonomon">
-      <div class="activeDonomonImage">
-          <img src="/public/images/nodomon/{{activeDonomon.donomons.name}}.png" alt="active donomon image">
-      </div>
-      <div class="activeDonomonInfo">
-          <p id="activeName"></p>
-          <p id="activeLevel"></p>
-          <p id="activeExp"></p>
-          <p id="activeMorality"></p>
-      </div>
-
-  
-  {{!-- drop down to select active donomon --}}
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      Choose active donomon
-    </button>
-    <ul class="dropdown-menu donomonSelection" aria-labelledby="dropdownMenuButton1">
-      {{#each donomons}}
-        <li><a class="dropdown-item donomonSelect" href="#" data-id="{{id}}">{{donomontype.name}} - {{level}}</a></li>
-      {{/each}}
-    </ul>
-  </div>
-            <h2>QUESTION</h2>
-            {{!-- get questions from question-routes
-            and all of the associated answers --}}
-            <div class="question">
-                <h2 id="questionText"></h2>
-                <div id="answersText">
-                        <button id="answer1"></button>
-                        <button id="answer2"></button>
-                        <button id="answer3"></button>
-                        <button id="answer4"></button>
-                </div>
-            </div>    
-
-{{!-- Empty rectangle for world chat using WebSocket using bootstrap --}}
-<div class="chat">
-    <div class="chat-header">
-        <h2>World Chat</h2>
+<h1 class='text-center'>Adventure</h1>
+{{! get active donomon from user route and call information from donomon table }}
+{{#if activeDonomon}}
+    <h2 class='text-center'>Active Donomon</h2>
+    <div class='activeDonomon grid text-center'>
+        <div class='activeDonomonImage'>
+            <img
+                id='activeImage'
+                src='/images/nodomon/{{activeDonomon.donomontype.name}}.png'
+                alt='active donomon image'
+            />
+        </div>
+        <div class='activeDonomonInfo'>
+            <p id='activeName'>{{activeDonomon.donomontype.name}}</p>
+            <p id='activeLevel'>Level : {{activeDonomon.level}}</p>
+            <p id='activeExp'>Experience : {{activeDonomon.exp}}</p>
+            <p id='activeMorality'>Morality : {{activeDonomon.morality}}</p>
+        </div>
     </div>
-    <div class="chat-body">
-        <div class="chat-messages">
-            <div class="chat-message">
-                <p>Message</p>
+{{/if}}
+
+{{! drop down to select active donomon }}
+<section class='container'>
+    <h2 class='text-center'>Select Active Donomon</h2>
+    <div class='dropdown text-center'>
+        <button
+            class='btn btn-secondary dropdown-toggle btn-sml'
+            type='button'
+            id='dropdownMenuButton1'
+            data-bs-toggle='dropdown'
+            aria-expanded='false'
+        >
+            Choose active donomon
+        </button>
+        <ul
+            class='dropdown-menu dropdown-menu-center text-center donomonSelection'
+            aria-labelledby='dropdownMenuButton1'
+        >
+            {{#each donomons}}
+                <li><a
+                        class='dropdown-item donomonSelect'
+                        href='#'
+                        data-id='{{id}}'
+                    >{{donomontype.name}} - {{level}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
+{{#if activeDonomon}}
+    <section class='question-section'>
+        <h2 class='text-center question-text'>QUESTION</h2>
+        {{! get questions from question-routes and all of the associated answers }}
+        <div class='question grid text-center'>
+            <h2 id='questionText'></h2>
+            <div id='answersText'>
+                <button id='answer1' class='p-2'></button>
+                <button id='answer2' class='p-2'></button>
+                <button id='answer3' class='p-2'></button>
+                <button id='answer4' class='p-2'></button>
             </div>
         </div>
-        <div class="chat-input">
-            <input type="text" placeholder="Type a message">
-            <button class="btn">Send</button>
-        </div>
-    </div>
+    </section>
+{{/if}}
 
+{{! This needs to be worked on (currently does not work **) }}
+<h1>World Chat</h1>
+<pre id='chat-box' style='overflow: auto'></pre>
+<input type='text' id='message' placeholder='Type your message here' />
+<button id='send' title='Send'>Send Message</button>
+<div id='username'>{{username}}</div>
 
-
-
-<script src="./js/adventure.js"></script>
+<script src='https://cdn.socket.io/socket.io-3.0.0.js'></script>
+<script src='./js/adventure.js'></script>

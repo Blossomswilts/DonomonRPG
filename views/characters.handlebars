@@ -1,10 +1,8 @@
-<div class='new character'>
+<div class='new character container text-center'>
     <div class='character'>
         <h2>create new character</h2>
         <form id='new-character' class='card-body'>
-            {{! <label class='character' for='name'>name</label>
-        <input id='name' type='text' name='name' class='form-input' /> }}
-            <label class='form-character' for='type'>Nodomon</label>
+            <label class='form-character' for='type'>Donomon</label>
             <select name='type' id='type'>
                 {{#each types}}
                     <option value='{{id}}'>{{name}}</option>
@@ -14,20 +12,22 @@
         </form>
     </div>
 </div>
-<div class='character-party'>
+<div class='character-party container text-center'>
     <h2>Your party</h2>
     {{#each donomons}}
-        {{! make a card bootstrap for each donomon }}
         <div class='card'>
             <div class='card-body'>
-                <img src='/images/nodomon/{{donomontype.name}}.png' alt='{{donomontype.name}}' />
-                {{! make sure the image type is added with it }}
+                <img
+                    src='/images/nodomon/{{donomontype.name}}.png'
+                    alt='{{donomontype.name}}'
+                />
             </div>
             <div class='card-body'>
                 <h3>{{donomontype.name}}</h3>
                 <p>{{donomontype.type}}</p>
-                <p>{{level}}</p>
-                <p>{{exp}}</p>
+                <p>Level: {{level}}</p>
+                <p>Exp: {{exp}}</p>
+                <p>Morality: {{morality}}</p>
                 <button
                     class='btn deleteDonomon'
                     data-id='{{id}}'

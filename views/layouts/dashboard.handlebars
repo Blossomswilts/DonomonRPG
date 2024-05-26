@@ -1,0 +1,48 @@
+<html lang='en'>
+
+    <head>
+        <meta charset='utf-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>DONOMON</title>
+        <link
+            href='https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap'
+            rel='stylesheet'
+        />
+        <link rel='stylesheet' href='/css/style.css' />
+    </head>
+
+    <body class='flex-column min-100-vh'>
+        <header class='hero'>
+        </header>
+        <nav class='navbar'>
+            <ul>
+                <li class='li-inline nav-item'><h1 class='app-title'><a
+                            href='/'
+                        >DONOMON</a></h1></li>
+                <li class='li-inline nav-item'><a href='/'>Home</a></li>
+                <li class='li-inline nav-item'><a href='/login'>Login</a></li>
+                <li class='li-inline nav-item'><a
+                        href='/Adventure'
+                    >Adventure</a></li>
+                <li class='li-inline nav-item'><a
+                        href='/Character'
+                    >Character</a></li>
+                <li class='li-inline nav-item'><a
+                        href='#'
+                        id='logout-link'
+                    >Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class='col-auto'>
+            {{{body}}}
+        </main>
+
+        <footer class='footer flex-row justify-center'>
+
+        </footer>
+    </body>
+
+    <script src='/js/logout.js'></script>
+
+</html>

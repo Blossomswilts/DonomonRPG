@@ -1,10 +1,17 @@
 const router = require('express').Router();
-const { Answer, Question, QuestionAnswer, Donomon } = require('../../models');
+const {
+    Answer,
+    Question,
+    QuestionAnswer,
+    Donomon,
+    DonomonType,
+} = require('../../models');
 const sequelize = require('../../config/connection');
+
 const withAuth = require('../../utils/auth');
 const { levelUp } = require('../../utils/helpers');
 
-//get random question
+//______________________GET RANDOM QUESTION______________________//
 router.get('/random', withAuth, async (req, res) => {
     const randomQuestion = (
         await Question.findAll({
@@ -28,7 +35,7 @@ router.get('/random', withAuth, async (req, res) => {
     res.json(randomQuestionPlain);
 });
 
-//get answer values from questionanswer table and update donomon
+//______________________UPDATE DONOMON WITH QUESTION VALUES______________________//
 router.get('/:questionId/answers/:answerId', async (req, res) => {
     try {
         const answerData = await QuestionAnswer.findOne({
@@ -45,8 +52,14 @@ router.get('/:questionId/answers/:answerId', async (req, res) => {
         await Donomon.update(updatedDonomon, {
             where: { id: req.session.activeDonomonId },
         });
-        res.status(200).json(updatedDonomon);
-        res.end();
+        const donomonName = await Donomon.findOne({
+            attributes: ['donomontype.name'],
+            where: { id: req.session.activeDonomonId },
+            include: DonomonType,
+        });
+        const donomonNewPlain = donomonName.get({ plain: true });
+        const name = donomonNewPlain.donomontype.name;
+        res.json({ updatedDonomon, name });
     } catch (err) {
         res.status(500).json(err);
     }

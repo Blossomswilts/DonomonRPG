@@ -1,84 +1,83 @@
 :root {
-    --primary:orange;
-    --secondary:red;
+    --primary: orange;
+    --secondary: red;
     --tertiary: yellow;
     --light-dark: #0b415a;
     --dark: #0f1177;
     --border-radius: 0.3rem;
-  }
-  
-  * {
+}
+
+* {
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     background-color: var(--primary);
     margin: 0;
     padding: 0;
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: 'IBM Plex Sans', sans-serif;
     color: var(--dark);
     line-height: 1.5;
     font-size: 16px;
-  
+
     /* Cool CSS effect */
-    background-image:
-      linear-gradient(
+    background-image: linear-gradient(
         to bottom,
         var(--primary),
         var(--secondary)
-      );
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+    );
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     margin: 0;
     color: var(--dark);
     line-height: 1.25;
-  }
-  
-  h2 a:visited {
+}
+
+h2 a:visited {
     color: var(--tertiary);
-  }
-  
-  h2 a {
+}
+
+h2 a {
     color: var(--primary);
-  }
-  
-  header {
+}
+
+header {
     margin-top: 50px;
-  }
-  
-  main {
+}
+
+main {
     margin: 20px auto;
     width: 94%;
-  }
-  
-  a {
+}
+
+a {
     text-decoration: none;
-  }
-  
-  p {
+}
+
+p {
     font-size: 1.2rem;
-  }
-  
-  input {
+}
+
+input {
     width: 100%;
     border: 1px solid #ccc;
     background: #fff;
     margin: 0 0 5px;
     padding: 10px;
-  }
-  
-  .card-header h2 {
+}
+
+.card-header h2 {
     color: var(--primary);
-  }
-  
-  .btn {
+}
+
+.btn {
     font-size: 1.3rem;
     text-decoration: none;
     padding: 6px 5px;
@@ -92,100 +91,146 @@
     background-color: var(--light-dark);
     box-shadow: 3px 3px var(--dark);
     transform: translate(-1px, -1px);
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     color: var(--primary);
     background-color: var(--tertiary);
     transform: translate(0, 0);
     box-shadow: 2px 2px var(--dark);
-  }
-  
-  .btn-inline {
+}
+
+.btn-inline {
     display: inline;
-  }
-  
-  .li-inline {
+}
+
+.li-inline {
     display: inline;
-  }
-  
-  .navbar {
+}
+
+.navbar {
     width: 100%;
     position: fixed;
     background-color: var(--dark);
-  }
-  
-  .nav-item {
-    margin: 0 40px;
-  }
-  
-  .nav-item a {
-      color: var(--primary);
-  }
-  
-  .hero {
-      padding:1.25%1%;
-      background-color:var(--dark);
-      color:#fff
-  }
-  
-  .hero p {
-      max-width :75%
-  }
-  
-  .app-title {
-      font-size :3rem;
-      background-color :var(--primary);
-      color :var(--dark);
-      padding :0%10px;
-      display :inline-block;
-      border-radius :var(--border-radius)
-  }
-  
-  .app-title a {
-      color :var(--dark)
-  }
-  
-  .list-group {
-      padding :1%
-  }
-  
-  .list-item {
-      margin-bottom :10px;
-      padding :1.5%;
-      border-radius :var(--border-radius);
-      background-color :var(--light-dark);
-      color :var(--primary);
-      text-decoration :none
-  }
-  
-  .list-item:hover {
-      background-color :var(--dark)
-  }
-  
-  .footer a {
-      display :inline-block;
-      padding :1em;
-      margin-bottom :0.5em;
-      background-color :var(--dark);
-      color :var(--primary);
-      border-radius :var(--border-radius);
-      text-decoration:none
-  }
+}
 
-  .form-input {
+.nav-item {
+    margin: 0 40px;
+}
+
+.nav-item a {
+    color: var(--dark);
+}
+
+.hero {
+    padding: 1.25%1%;
+    background-color: var(--dark);
+    color: #fff;
+}
+
+.hero p {
+    max-width: 75%;
+}
+
+.app-title {
+    font-size: 3rem;
+    background-color: var(--primary);
+    color: var(--dark);
+    padding: 0%10px;
+    display: inline-block;
+    border-radius: var(--border-radius);
+}
+
+.app-title a {
+    color: var(--dark);
+}
+
+.list-group {
+    padding: 1%;
+}
+
+.list-item {
+    margin-bottom: 10px;
+    padding: 1.5%;
+    border-radius: var(--border-radius);
+    background-color: var(--light-dark);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.list-item:hover {
+    background-color: var(--dark);
+}
+
+.footer a {
+    display: inline-block;
+    padding: 1em;
+    margin-bottom: 0.5em;
+    background-color: var(--dark);
+    color: var(--primary);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+}
+
+.form-input {
     font-size: 1.2rem;
     padding: 0.5rem;
     margin-bottom: 1rem;
-  }
-  .btn {
+}
+.btn {
     font-size: 1.2rem;
     padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  .btn:hover {
-    background-color: #3E8E41;
-  }
+}
+.btn:hover {
+    background-color: #00ff08;
+}
+
+.logo {
+    width: 256px;
+    height: 256px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: -50px;
+}
+
+.card {
+    margin-bottom: 50px;
+    background-color: antiquewhite;
+}
+
+.question-section {
+    border: 3px solid black;
+    border-radius: 20px;
+    padding: 50px;
+    margin: 30px;
+}
+
+.question-text {
+    margin: 10px;
+    text-decoration: underline;
+    color: #49446d;
+}
+
+#questionText {
+    margin: 20px;
+}
+
+.text-sizing p {
+    font-size: 30px;
+    margin-left: 10%;
+}
+
+#username {
+    display: none;
+}
+
+#chat-box {
+    background-color: white;
+    height: 400px;
+    text-align: left;
+    padding: 2%;
+}

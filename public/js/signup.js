@@ -1,3 +1,17 @@
+const errorModal = async function (response) {
+    const error = await response.json();
+    const errorModal = document.getElementById('errorModalBody');
+    errorModal.innerHTML = error.message;
+    $('#errorModal').modal('show');
+
+    const closeButton = document.querySelector(
+        '#errorModal .modal-footer .btn-secondary',
+    );
+    closeButton.addEventListener('click', function () {
+        $('#errorModal').modal('hide');
+    });
+};
+
 const signupFormHandler = async function (event) {
     event.preventDefault();
 
@@ -18,7 +32,7 @@ const signupFormHandler = async function (event) {
     if (response.ok) {
         document.location.replace('/');
     } else {
-        alert('Failed to sign up');
+        errorModal(response);
     }
 };
 

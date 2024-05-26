@@ -1,40 +1,60 @@
+const wsProtocol =
+    location.protocol.toLocaleLowerCase() === 'http:' ? 'ws' : 'wss';
+const connection = io(`${wsProtocol}://${location.hostname}:${location.port}`);
+const chatBody = document.querySelector('#chat-box');
+
+document.querySelector('#send').onclick = () => {
+    const username = document.getElementById('username').textContent;
+    const text = document.querySelector('#message').value;
+    connection.emit('message', `${username}: ${text}`);
+    document.querySelector('#message').value = '';
+};
+
+connection.on('broadcast', (msg) => {
+    chatBody.innerHTML = chatBody.innerHTML + `\n${msg}`;
+});
+
+//error function
+
+const errorModal = async function (response) {
+    const error = await response.json();
+    const errorModal = document.getElementById('errorModalBody');
+    errorModal.innerHTML = error.message;
+    $('#errorModal').modal('show');
+
+    const closeButton = document.querySelector(
+        '#errorModal .modal-footer .btn-secondary',
+    );
+    closeButton.addEventListener('click', function () {
+        $('#errorModal').modal('hide');
+    });
+};
+
 function render(question) {
     const questionEl = document.getElementById('questionText');
     questionEl.textContent = question.text;
     questionEl.setAttribute('data-id', question.id);
-
-    if (Array.isArray(question.answer)) {
-        question.answer.forEach((answer, i) => {
-            const answerEl = document.getElementById(`answer${i + 1}`);
-            if (answerEl) {
-                // Ensure answerEl is valid before updating
-                answerEl.textContent = answer.text;
-                answerEl.setAttribute('data-id', answer.id);
-            }
-        });
-    } else {
-        console.error('Invalid question format:', question);
-        // Handle the case where question.answer is not an array
-    }
+    question.answer.forEach((answer, i) => {
+        const answerEl = document.getElementById(`answer${i + 1}`);
+        answerEl.textContent = answer.text;
+        answerEl.setAttribute('data-id', answer.id);
+    });
 }
 
 async function getRandomQuestion() {
-    try {
-        const response = await fetch('/api/questions/random', {
-            method: 'GET',
-        });
-        if (response.ok) {
-            const question = await response.json();
-            render(question);
-        } else {
-            alert(response.statusText);
-        }
-    } catch (err) {
-        console.log(err);
+    const response = await fetch('/api/questions/random', {
+        method: 'GET',
+    });
+
+    if (response.ok) {
+        const question = await response.json();
+        render(question);
+    } else {
+        errorModal(response);
     }
 }
 
-//update donomon experience and morality by adding in the answer's experience and morality
+//Update donomon on click of answer
 async function updateDonomon(answerId, questionId) {
     try {
         const response = await fetch(
@@ -45,9 +65,25 @@ async function updateDonomon(answerId, questionId) {
         );
 
         if (response.ok) {
-            return await response.json();
+            //update dynamically.
+            const donomon = await response.json();
+            const donomonName = document.getElementById('activeName');
+            const donomonImg = document.getElementById('activeImage');
+            const donomonLevel = document.getElementById('activeLevel');
+            const donomonExp = document.getElementById('activeExp');
+            const donomonMorality = document.getElementById('activeMorality');
+
+            // get active donomon name from session
+            donomonImg.setAttribute(
+                'src',
+                `/images/nodomon/${donomon.name}.png`,
+            );
+            donomonName.textContent = donomon.name;
+            donomonLevel.textContent = `Level : ${donomon.updatedDonomon.level}`;
+            donomonExp.textContent = `Exp : ${donomon.updatedDonomon.exp}`;
+            donomonMorality.textContent = `Morality : ${donomon.updatedDonomon.morality}`;
         } else {
-            alert(response.statusText);
+            errorModal(response);
         }
     } catch (err) {
         console.log(err);
@@ -61,9 +97,9 @@ async function setActiveDonomon(donomonId) {
     });
 
     if (response.ok) {
-        getRandomQuestion();
+        document.location.reload();
     } else {
-        alert(response.statusText);
+        errorModal(response);
     }
 }
 
@@ -71,41 +107,50 @@ async function setActiveDonomon(donomonId) {
 const dropDownItems = document.querySelectorAll('.donomonSelect');
 
 dropDownItems.forEach((item) => {
-    item.addEventListener('click', (event) => {
-        const donomonId = event.target.dataset.id;
+    item.addEventListener('click', () => {
+        const donomonId = item.dataset.id;
         setActiveDonomon(donomonId);
     });
 });
 
 //call updateDonomon on click of answer
-const question = document.getElementById('questionText');
-const answer1 = document.getElementById('answer1');
-const answer2 = document.getElementById('answer2');
-const answer3 = document.getElementById('answer3');
-const answer4 = document.getElementById('answer4');
+function setUpListeners() {
+    const question = document.getElementById('questionText');
+    const answer1 = document.getElementById('answer1');
+    const answer2 = document.getElementById('answer2');
+    const answer3 = document.getElementById('answer3');
+    const answer4 = document.getElementById('answer4');
 
-answer1.addEventListener('click', () => {
-    const answerId = answer1.dataset.id;
-    updateDonomon(answerId, question.dataset.id);
+    answer1.addEventListener('click', () => {
+        const answerId = answer1.dataset.id;
+        updateDonomon(answerId, question.dataset.id);
+        getRandomQuestion();
+    });
+
+    answer2.addEventListener('click', () => {
+        const answerId = answer2.dataset.id;
+        updateDonomon(answerId, question.dataset.id);
+        getRandomQuestion();
+    });
+
+    answer3.addEventListener('click', () => {
+        const answerId = answer3.dataset.id;
+        updateDonomon(answerId, question.dataset.id);
+        getRandomQuestion();
+    });
+
+    answer4.addEventListener('click', () => {
+        const answerId = answer4.dataset.id;
+        updateDonomon(answerId, question.dataset.id);
+        getRandomQuestion();
+    });
     getRandomQuestion();
-});
+}
 
-answer2.addEventListener('click', () => {
-    const answerId = answer2.dataset.id;
-    updateDonomon(answerId, question.dataset.id);
-    getRandomQuestion();
-});
-
-answer3.addEventListener('click', () => {
-    const answerId = answer3.dataset.id;
-    updateDonomon(answerId, question.dataset.id);
-    getRandomQuestion();
-});
-
-answer4.addEventListener('click', () => {
-    const answerId = answer4.dataset.id;
-    updateDonomon(answerId, question.dataset.id);
-    getRandomQuestion();
-});
-
-getRandomQuestion();
+//check if there is an active donomon and if there is, call setUpListeners
+const activeDonomon = document.getElementById('activeName');
+if (activeDonomon) {
+    setUpListeners();
+} else {
+    //do nothing
+}
