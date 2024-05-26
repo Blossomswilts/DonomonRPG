@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { Answer, Question, QuestionAnswer, Donomon } = require('../../models');
 const sequelize = require('../../config/connection');
-
 const withAuth = require('../../utils/auth');
 const { levelUp } = require('../../utils/helpers');
 
@@ -35,8 +34,8 @@ router.get('/:questionId/answers/:answerId', async (req, res) => {
         const answerData = await QuestionAnswer.findOne({
             where: {
                 questionId: req.params.questionId,
-                answerId: req.params.answerId
-            }
+                answerId: req.params.answerId,
+            },
         });
         const donomon = await Donomon.findByPk(req.session.activeDonomonId);
         const donomonPlain = donomon.get({ plain: true });
@@ -44,7 +43,7 @@ router.get('/:questionId/answers/:answerId', async (req, res) => {
         donomonPlain.exp += answerData.experience;
         const updatedDonomon = await levelUp(donomonPlain);
         await Donomon.update(updatedDonomon, {
-            where: { id: req.session.activeDonomonId,},
+            where: { id: req.session.activeDonomonId },
         });
         res.status(200).json(updatedDonomon);
         res.end();
@@ -52,6 +51,5 @@ router.get('/:questionId/answers/:answerId', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
 
 module.exports = router;

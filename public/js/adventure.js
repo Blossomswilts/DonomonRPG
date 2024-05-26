@@ -10,15 +10,18 @@ function render(question) {
 }
 
 async function getRandomQuestion() {
-    const response = await fetch('/api/questions/random', {
-        method: 'GET',
-    });
-
-    if (response.ok) {
-        const question = await response.json();
-        render(question);
-    } else {
-        alert(response.statusText);
+    try {
+        const response = await fetch('/api/questions/random', {
+            method: 'GET',
+        });
+        if (response.ok) {
+            const question = await response.json();
+            render(question);
+        } else {
+            alert(response.statusText);
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -60,8 +63,8 @@ async function setActiveDonomon(donomonId) {
 const dropDownItems = document.querySelectorAll('.donomonSelect');
 
 dropDownItems.forEach((item) => {
-    item.addEventListener('click', () => {
-        const donomonId = item.dataset.id;
+    item.addEventListener('click', (event) => {
+        const donomonId = event.target.dataset.id;
         setActiveDonomon(donomonId);
     });
 });

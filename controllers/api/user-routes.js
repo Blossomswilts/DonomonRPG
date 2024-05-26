@@ -77,15 +77,16 @@ router.put('/active/:id', async (req, res) => {
                 },
             },
         );
-        const activeDonomon = await Donomon.findByPk(
-            req.session.activeDonomonId,
-        );
+        // Log the active donomon id to the console
+        console.log(req.session.userId);
+        const activeDonomon = await Donomon.findByPk(req.params.id);
         //save to session
         req.session.save(() => {
-            req.session.activeDonomonId = req.params.id;
+            // req.session.activeDonomonId = req.params.id;
             res.json(activeDonomon.get({ plain: true }));
         });
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -99,8 +100,6 @@ router.get('/active', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-
 
 // Logout route
 router.post('/logout', (req, res) => {
