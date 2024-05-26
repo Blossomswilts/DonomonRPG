@@ -2,11 +2,20 @@ function render(question) {
     const questionEl = document.getElementById('questionText');
     questionEl.textContent = question.text;
     questionEl.setAttribute('data-id', question.id);
-    question.answer.forEach((answer, i) => {
-        const answerEl = document.getElementById(`answer${i + 1}`);
-        answerEl.textContent = answer.text;
-        answerEl.setAttribute('data-id', answer.id);
-    });
+
+    if (Array.isArray(question.answer)) {
+        question.answer.forEach((answer, i) => {
+            const answerEl = document.getElementById(`answer${i + 1}`);
+            if (answerEl) {
+                // Ensure answerEl is valid before updating
+                answerEl.textContent = answer.text;
+                answerEl.setAttribute('data-id', answer.id);
+            }
+        });
+    } else {
+        console.error('Invalid question format:', question);
+        // Handle the case where question.answer is not an array
+    }
 }
 
 async function getRandomQuestion() {
@@ -52,8 +61,7 @@ async function setActiveDonomon(donomonId) {
     });
 
     if (response.ok) {
-        const donomon = await response.json();
-        render(donomon);
+        getRandomQuestion();
     } else {
         alert(response.statusText);
     }
