@@ -10,7 +10,7 @@ If you don't get the one you want, you can always create a new Donomon and try a
 Everything you do is saved within your session, so you can always come back to it later!
 While you are on your adventure, you can always stop for a break and talk to others in the world chat! 
 This application is a full stack application, hosted through Heroku, and is accessible through the link below!<br>
-[Donomon Choice RPG](https://frozen-cliffs-11727-ff4251073048.herokuapp.com/)</br>
+[Donomon Choice RPG](https://donomon-rpg-bb9647eceefc.herokuapp.com/)</br>
 
 - Why did you build this project? 
     - We wanted to create a game that would be fun and interactive for the user, while also being able to save their progress and choices. This is to help people unwind and have fun, while also being able to see the results of their choices. Which may give an output to who they are as a person!<br></br>
@@ -52,7 +52,7 @@ In order to run the program, after obtaining all of the dependencies you will ne
 * `npm start` : this will begin the program in your terminal, in which you can use localhost:3001 to access the web application. mysql workbench can be used to view the database.
 
 FOR USER PURPOSES
-* Application link to deployed application: [Donomon Choice RPG](https://frozen-cliffs-11727-ff4251073048.herokuapp.com/)
+* Application link to deployed application: [Donomon Choice RPG](https://donomon-rpg-bb9647eceefc.herokuapp.com/)
 
 FOR DEVELOPER PURPOSES
 * Application link to github repository: [Donomon Choice RPG GitHub](https://github.com/Blossomswilts/Donomon-Choice-RPG)
