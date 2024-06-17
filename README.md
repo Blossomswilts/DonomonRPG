@@ -55,7 +55,7 @@ FOR USER PURPOSES
 * Application link to deployed application: [Donomon Choice RPG](https://donomon-rpg-bb9647eceefc.herokuapp.com/)
 
 FOR DEVELOPER PURPOSES
-* Application link to github repository: [Donomon Choice RPG GitHub](https://github.com/Blossomswilts/Donomon-Choice-RPG)
+* Application link to github repository: [Donomon Choice RPG GitHub](https://github.com/Blossomswilts/DonomonRPG)
 
 ## Contribution
 If you would like to contribute to this project, and improve it in your own way(s), please do the following:
